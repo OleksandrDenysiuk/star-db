@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './app.css';
 
 import Header from '../header';
@@ -7,22 +7,43 @@ import ItemList from '../item-list';
 import PersonDetails from '../person-details';
 
 
-const App = () => {
-    return (
-        <div>
-            <Header />
-            <RandomPlanet />
+export default class App extends Component{
+    state = {
+        showRandomPlanet: true
+    }
 
-            <div className="row mb2">
-                <div className="col-md-6">
-                    <ItemList />
+    togglePlanet = () => {
+        this.setState(({showRandomPlanet}) => {
+            return {
+                showRandomPlanet: !showRandomPlanet
+            }
+        })
+    }
+
+    render() {
+
+        const {showRandomPlanet} = this.state;
+        const randomPlanet = showRandomPlanet ? <RandomPlanet /> : null;
+        return (
+            <div className="stardb-app">
+                <Header />
+                {randomPlanet}
+                <div className="row mb2 button-row">
+                    <button
+                        className="toggle-planet btn btn-warning btn-lg"
+                        onClick={this.togglePlanet}>
+                        Toggle Random Planet
+                    </button>
                 </div>
-                <div className="col-md-6">
-                    <PersonDetails />
+                <div className="row mb2">
+                    <div className="col-md-6">
+                        <ItemList />
+                    </div>
+                    <div className="col-md-6">
+                        <PersonDetails />
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
-
-export default App;
