@@ -9,7 +9,8 @@ import PersonDetails from '../person-details';
 
 export default class App extends Component{
     state = {
-        showRandomPlanet: true
+        showRandomPlanet: true,
+        selectedPerson: null
     }
 
     togglePlanet = () => {
@@ -17,6 +18,12 @@ export default class App extends Component{
             return {
                 showRandomPlanet: !showRandomPlanet
             }
+        })
+    }
+
+    onPersonSelected = (id) => {
+        this.setState({
+            selectedPerson: id
         })
     }
 
@@ -37,10 +44,10 @@ export default class App extends Component{
                 </div>
                 <div className="row mb2">
                     <div className="col-md-6">
-                        <ItemList />
+                        <ItemList onItemSelected={this.onPersonSelected()}/>
                     </div>
                     <div className="col-md-6">
-                        <PersonDetails />
+                        <PersonDetails personId={this.props.selectedPerson}/>
                     </div>
                 </div>
             </div>
