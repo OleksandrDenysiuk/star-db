@@ -3,6 +3,7 @@ import './person-details.css';
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
 import ErrorButton from "../error-button";
+import ErrorBoundary from "../error-boundary";
 
 export default class PersonDetails extends Component {
 
@@ -43,14 +44,18 @@ export default class PersonDetails extends Component {
 
         const {person, loading} = this.state;
 
+        if (!person) {
+            return <span>Select a person fron list</span>
+        }
+
         const spinner = loading ? <Spinner/> : null;
         const view = !loading ? <PersonDetailsView personDetails={this.state.person}/> : null;
 
         return (
-            <React.Fragment>
+            <ErrorBoundary>
                 {spinner}
                 {view}
-            </React.Fragment>
+            </ErrorBoundary>
         )
     }
 }
@@ -58,10 +63,6 @@ export default class PersonDetails extends Component {
 class PersonDetailsView extends Component {
 
     render() {
-
-        if (!this.props.personDetails) {
-            return <span>Select a person fron list</span>
-        }
 
         const {id, name, gender, birthYear, eyeColor} = this.props.personDetails;
         return (
