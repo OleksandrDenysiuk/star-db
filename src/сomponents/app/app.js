@@ -3,10 +3,19 @@ import './app.css';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import PeoplePage from "../people-page";
 import ErrorButton from "../error-button";
 import ErrorIndicator from "../error-indicator";
+import {
+    PersonList,
+    PlanetList,
+    StarshipList
+} from '../sw-components';
 
+import {
+    PersonDetails,
+    PlanetDetails,
+    StarshipDetails
+} from "../sw-components";
 
 export default class App extends Component {
     state = {
@@ -46,7 +55,12 @@ export default class App extends Component {
                     </button>
                     <ErrorButton/>
                 </div>
-                <PeoplePage/>
+                <PersonDetails personId={2}/>
+                <PlanetDetails planetId={3}/>
+                <StarshipDetails starshipId={9}/>
+                <PersonList />
+                <PlanetList />
+                <StarshipList />
             </div>
         );
     }
