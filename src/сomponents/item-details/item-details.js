@@ -71,7 +71,7 @@ export default class ItemDetails extends Component {
                 <div className="item-details card">
                     <img className="item-image"
                          src={imgUrl}
-                         alt="image"/>
+                         alt="item photo"/>
 
                     <div className="card-body">
                         <h4>{item.name}</h4>
