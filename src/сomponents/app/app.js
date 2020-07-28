@@ -61,9 +61,9 @@ export default class App extends Component {
                         </button>
                         <ErrorButton/>
                     </div>
-                    <PersonDetails personId={2}/>
-                    <PlanetDetails planetId={3}/>
-                    <StarshipDetails starshipId={9}/>
+                    <PersonDetails itemId={2}/>
+                    <PlanetDetails itemId={1}/>
+                    <StarshipDetails itemId={9}/>
                     <PersonList/>
                     <PlanetList/>
                     <StarshipList/>
