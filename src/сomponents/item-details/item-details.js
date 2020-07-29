@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './item-details.css';
-import SwapiService from "../../services/swapi-service";
+
 import Spinner from "../spinner";
 import ErrorButton from "../error-button";
 import ErrorBoundary from "../error-boundary";
@@ -19,9 +19,6 @@ export {
 };
 
 export default class ItemDetails extends Component {
-
-    swapi = new SwapiService();
-
     state = {
         item: null,
         imgUrl: null,
