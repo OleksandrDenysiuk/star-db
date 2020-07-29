@@ -3,41 +3,33 @@ import './app.css';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import ErrorButton from "../error-button";
 import ErrorIndicator from "../error-indicator";
 import SwapiService from "../../services/swapi-service";
+import DummySwapiService from "../../services/dummy-swapi-service";
 import {SwapiServiceProvider} from "../swapi-service-context";
-import {
-    PersonList,
-    PlanetList,
-    StarshipList
-} from '../sw-components';
-
-import {
-    PersonDetails,
-    PlanetDetails,
-    StarshipDetails
-} from "../sw-components";
+import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
 
 export default class App extends Component {
 
-    swapiService = new SwapiService();
+
 
     state = {
-        showRandomPlanet: true,
-        hasError: false
-    }
-
-    togglePlanet = () => {
-        this.setState(({showRandomPlanet}) => {
-            return {
-                showRandomPlanet: !showRandomPlanet
-            }
-        })
+        hasError: false,
+        swapiService: new SwapiService()
     }
 
     componentDidCatch() {
         this.setState({hasError: true});
+    }
+
+    onServiceChange = () => {
+        this.setState(({swapiService}) => {
+            const Service = swapiService instanceof SwapiService ?
+                            DummySwapiService : SwapiService;
+            return {
+                swapiService: new Service()
+            };
+        })
     }
 
     render() {
@@ -46,27 +38,16 @@ export default class App extends Component {
             return <ErrorIndicator/>
         }
 
-        const {showRandomPlanet} = this.state;
-        const randomPlanet = showRandomPlanet ? <RandomPlanet/> : null;
+        const {swapiService} = this.state;
         return (
-            <SwapiServiceProvider value={this.swapiService}>
+            <SwapiServiceProvider value={swapiService}>
                 <div className="stardb-app">
-                    <Header/>
-                    {randomPlanet}
-                    <div className="row mb2 button-row">
-                        <button
-                            className="toggle-planet btn btn-warning btn-lg"
-                            onClick={this.togglePlanet}>
-                            Toggle Random Planet
-                        </button>
-                        <ErrorButton/>
-                    </div>
-                    <PersonDetails itemId={2}/>
-                    <PlanetDetails itemId={1}/>
-                    <StarshipDetails itemId={9}/>
-                    <PersonList/>
-                    <PlanetList/>
-                    <StarshipList/>
+                    <Header onServiceChange={this.onServiceChange}/>
+                    <RandomPlanet />
+                    <PeoplePage />
+                    <PlanetsPage />
+                    <StarshipsPage />
+
                 </div>
             </SwapiServiceProvider>
         );
