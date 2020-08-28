@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import SwapiService from '../../services/swapi-service';
 import './random-planet.css';
 import Spinner from "../spinner";
